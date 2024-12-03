@@ -9,7 +9,7 @@
 <body>
 <?php require "topo.php"; ?>
 
-<!BUSCANDO ESTUDANTES NO BANCO>
+<!BUSCANDO VOLUNTARIOS NO BANCO>
 
 <div id="caixa_preta">
 </div><!-- caixa_preta -->
@@ -103,12 +103,12 @@ echo "<script language='javascript'>window.location='voluntarios.php?pg=todos';<
 $id = $_GET['id'];
 $code = $_GET['code'];
 
-$sql_editar = "UPDATE estudantes SET status = 'Inativo' WHERE id = '$id'";
+$sql_editar = "UPDATE voluntarios SET status = 'Inativo' WHERE id = '$id'";
 $sql_editar2 = "UPDATE login SET status = 'Inativo' WHERE code = '$code'";
 mysqli_query($conexao, $sql_editar);
 mysqli_query($conexao,$sql_editar2);
 
-echo "<script language='javascript'>window.location='estudantes.php?pg=todos';</script>";
+echo "<script language='javascript'>window.location='voluntarios.php?pg=todos';</script>";
 }?>
 
 
@@ -124,7 +124,7 @@ echo "<script language='javascript'>window.location='estudantes.php?pg=todos';</
 <?php  if(@$_GET['pg'] == 'cadastra'){ ?> 
 <?php  if(@$_GET['bloco'] == '1'){ ?>
 <div id="cadastra_estudante">
- <h1>1º Passo - Cadastre os dados pessoais</h1>
+ <h1>1º Passo - Cadastre os dados pessoais - VOL</h1>
 
 <?php  if(isset($_POST['button'])){
 
@@ -145,14 +145,14 @@ $cep = $_POST['cep'];
 $celular = $_POST['celular'];
 $tel_amigo = $_POST['tel_amigo'];
 
-$sql_2 = "INSERT INTO estudantes (code, status, nome, cpf, rg, nascimento, mae, pai, estado, cidade, bairro, endereco, complemento, cep, tel_residencial, celular, tel_amigo) VALUES ('$code', 'Ativo', '$nome', '$cpf', '$rg', '$nascimento', '$mae', '$pai', '$estado', '$cidade', '$bairro', '$endereco', '$complemento', '$cep', '$tel_residencial', '$celular', '$tel_amigo')";
+$sql_2 = "INSERT INTO voluntarios (code, status, nome, cpf, rg, nascimento, mae, pai, estado, cidade, bairro, endereco, complemento, cep, tel_residencial, celular, tel_amigo) VALUES ('$code', 'Ativo', '$nome', '$cpf', '$rg', '$nascimento', '$mae', '$pai', '$estado', '$cidade', '$bairro', '$endereco', '$complemento', '$cep', '$tel_residencial', '$celular', '$tel_amigo')";
 
 $sql_login = "INSERT INTO login (status, code, senha, nome, painel) VALUES ('Ativo', '$code', '$cpf', '$nome', 'Aluno')";
 
 $cadastra = mysqli_query($conexao, $sql_2);
 $cadastra_login = mysqli_query($conexao, $sql_login);
 
-echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso! Click em OK para avançar');window.location='estudantes.php?pg=cadastra&bloco=2&code=$code';</script>";
+echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso! Click em OK para avançar');window.location='voluntarios.php?pg=cadastra&bloco=2&code=$code';</script>";
 
 }?> 
  
@@ -166,7 +166,7 @@ echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso!
     <tr>
      <td></td>
      <?php 
-	 $sql_1 = "SELECT * FROM estudantes ORDER BY id DESC LIMIT 1";
+	 $sql_1 = "SELECT * FROM voluntarios ORDER BY id DESC LIMIT 1";
 	 $con_est = mysqli_query($conexao, $sql_1);
 	 if(mysqli_num_rows($con_est) == ''){
 		 $novo_code = "587418";
@@ -243,6 +243,7 @@ echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso!
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
+    VOLUNTARIO
   </table>
 </form>
 <br /> 
@@ -253,130 +254,6 @@ echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso!
 
 
 
-
-<!CADASTRO DOS ESTUDANTES - ETAPA 2>
-
-<?php if(@$_GET['bloco'] == '2'){ ?>
-<div id="cadastra_estudante">
- <h1>2º Passo - Finalizar preenchimento de dados</h1>
-
-<?php if(isset($_POST['button'])){
-
-$code = $_GET['code'];
-$serie = $_POST['serie'];
-$turno = $_POST['turno'];
-$cuidado_especial = $_POST['cuidado_especial'];
-$mensalidade = $_POST['mensalidade'];
-$vencimento = $_POST['vencimento'];
-$tel_cobranca = $_POST['tel_cobranca'];
-$obs = $_POST['obs'];
-
-$sql_3 = "UPDATE estudantes SET serie = '$serie', turno = '$turno', atendimento_especial = '$cuidado_especial', mensalidade = '$mensalidade', vencimento = '$vencimento', tel_cobranca = '$tel_cobranca', obs = '$obs' WHERE code = '$code'";
-
-mysqli_query($conexao, $sql_3);
-
-$d = date("d");
-$m = date("m");
-$a = date("Y");
-$code_cobranca = $code*2;
-
-$sql_mensal = "INSERT INTO mensalidades (code, matricula, d_cobranca, vencimento, valor, status, dia, mes, ano) VALUES ('$code_cobranca', '$code', '$d/$m/$a', '$vencimento/$m/$a', '$mensalidade', 'Aguarda Pagamento', '$d', '$m', '$a')";
-
-mysqli_query($conexao, $sql_mensal);
-
-echo "<script language='javascript'>window.location='estudantes.php?pg=cadastra&bloco=3';</script>";
-
-}?> 
- 
-<form name="form1" method="post" action="">
-  <table width="900" border="0">
-    <tr>
-      <td width="350">Série que este voluntário vai se matricular:</td>
-      <td width="332">Turno:</td>
-      <td width="204">Cuidado Especial</td>
-    </tr>
-    <tr>
-      <td>
-      <select name="serie" id="serie">
-      <?php
-      $sql_4 = "SELECT * FROM cursos";
-	  $resultado = mysqli_query($conexao, $sql_4);
-	  	while($res_1 = mysqli_fetch_assoc($resultado)){
-	  ?>  
-        <option value="<?php echo $res_1['curso']; ?>"><?php echo $res_1['curso']; ?></option>
-      <?php } ?>
-      </select>
-      </td>
-      <td><label for="turno"></label>
-        <select name="turno" size="1" id="turno">
-          <option value="Manhã">Manhã</option>
-          <option value="Tarde">Tarde</option>
-          <option value="Noite">Noite</option>
-      </select></td>
-      <td><label for="cuidado_especial"></label>
-        <select name="cuidado_especial" size="1" id="cuidado_especial">
-          <option value="SIM">SIM</option>
-          <option value="NÃO">NÃO</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td>Valor da mensalidade:</td>
-      <td>Data de vencimento:</td>
-      <td>Telefone de cobrança:</td>
-    </tr>
-    <tr>
-      <td><label for="mensalidade"></label>
-      <input type="text" name="mensalidade" id="mensalidade"></td>
-      <td><label for="vencimento"></label>
-      <input type="text" name="vencimento" id="vencimento"></td>
-      <td><label for="tel_cobranca"></label>
-      <input type="text" name="tel_cobranca" id="tel_cobranca"></td>
-    </tr>
-    <tr>
-      <td>Observações para este(a) voluntário(a)</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="3"><label for="obs"></label>
-      <textarea name="obs" id="obs" cols="45" rows="5"></textarea></td>
-    </tr>
-    <tr>
-      <td><input class="input" type="submit" name="button" id="button" value="Finalizar"></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-  </table>
-</form>
-<br />
- 
-</div><!-- cadastra_estudante -->
-
-
-<?php }// aqui fecha o bloco 2 ?>
-
-
-<?php if(@$_GET['bloco'] == '3'){ ?>
-<div id="cadastra_estudante">
- <h1>3º Passo - Mensagem de confirmação</h1>
- <table>
-<tr>
-<td>
-<h4>Este(a) Estudante foi cadastrado perfeitamente no sistema!
-<ul>
- <li>Mensalmente será gerado a cobrança no valor informado!</li>
- <li>Este estudante já tem acesso ao sistema usando seu código e seu CPF como senha!</li>
-</ul>
-<a href="estudantes.php?pg=todos">Clique aqui para voltar para página inicial</a>
-</h4>
-</td>
-</tr>
-</table>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-</div><!-- cadastra_estudante -->
-
-
-<?php }// aqui fecha o bloco 3 ?>
 
 
 <?php }// aqui fecha a PG cadastra ?>

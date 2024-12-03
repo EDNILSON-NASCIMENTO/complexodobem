@@ -64,8 +64,8 @@ if(isset($_POST['button'])){
 						echo "<script language='javascript'> window.location='professor';</script>";	
 					}else if($painel == 'portaria'){
 						echo "<script language='javascript'> window.location='portaria';</script>";	
-					}else if($painel == 'tesouraria'){
-						echo "<script language='javascript'> window.location='tesouraria';</script>";	
+					}else if($painel == 'voluntario'){
+						echo "<script language='javascript'> window.location='voluntario';</script>";	
 					}
 						
 				}

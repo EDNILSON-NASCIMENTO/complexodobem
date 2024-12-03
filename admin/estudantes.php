@@ -124,7 +124,7 @@ echo "<script language='javascript'>window.location='estudantes.php?pg=todos';</
 <?php  if(@$_GET['pg'] == 'cadastra'){ ?> 
 <?php  if(@$_GET['bloco'] == '1'){ ?>
 <div id="cadastra_estudante">
- <h1>1º Passo - Cadastre os dados pessoais</h1>
+ <h1>1º Passo - Cadastre os dados pessoais - TESTE</h1>
 
 <?php  if(isset($_POST['button'])){
 
@@ -150,6 +150,7 @@ $sql_2 = "INSERT INTO estudantes (code, status, nome, cpf, rg, nascimento, mae, 
 $sql_login = "INSERT INTO login (status, code, senha, nome, painel) VALUES ('Ativo', '$code', '$cpf', '$nome', 'Aluno')";
 
 $cadastra = mysqli_query($conexao, $sql_2);
+print($cadastra);
 $cadastra_login = mysqli_query($conexao, $sql_login);
 
 echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso! Click em OK para avançar');window.location='estudantes.php?pg=cadastra&bloco=2&code=$code';</script>";
@@ -245,6 +246,7 @@ echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso!
     </tr>
   </table>
 </form>
+
 <br /> 
  
 </div><!-- cadastra_estudante -->

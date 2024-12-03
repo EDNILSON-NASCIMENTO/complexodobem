@@ -223,6 +223,7 @@ if($res_editar == ''){
 <?php if(isset($_POST['button'])){
 	
 $code = $_POST['code'];
+
 $nome = $_POST['nome'];
 $cpf = $_POST['cpf'];
 $nascimento = $_POST['nascimento'];

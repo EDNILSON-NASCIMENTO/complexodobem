@@ -1,10 +1,10 @@
 ﻿<?php
 
 function conectar(){
-	$servidor = "localhost";
-	$usuario = "root";
-	$senha= "";
-	$bd = "sistema_escolar";
+	$servidor = "rsszky.ddns.net";
+	$usuario = "Edi_professor";
+	$senha= "complexo1234";
+	$bd = "complexodobem";
 	
 	$con = new mysqli($servidor, $usuario, $senha, $bd);
 	return $con;
