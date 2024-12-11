@@ -195,7 +195,7 @@ if($res_editar == ''){
     <tr>
       <td><input type="text" name="pos_graduacao" id="textfield6" value="<?php echo $res_1['pos_graduacao']; ?>"></td>
       <td><input type="text" name="mestrado" id="textfield7" value="<?php echo $res_1['mestrado']; ?>"></td>
-      <td><input type="text" name="doutorado" id="textfield8" value="doutorado"></td>
+      <td><input type="text" name="doutorado" id="textfield8" value="<?php echo $res_1['doutorado']; ?>"></td>
     </tr>
     <tr>
       <td><input class="input" type="submit" name="button" id="button" value="Atualizar"></td>

@@ -147,10 +147,12 @@ $tel_amigo = $_POST['tel_amigo'];
 
 $sql_2 = "INSERT INTO estudantes (code, status, nome, cpf, rg, nascimento, mae, pai, estado, cidade, bairro, endereco, complemento, cep, tel_residencial, celular, tel_amigo) VALUES ('$code', 'Ativo', '$nome', '$cpf', '$rg', '$nascimento', '$mae', '$pai', '$estado', '$cidade', '$bairro', '$endereco', '$complemento', '$cep', '$tel_residencial', '$celular', '$tel_amigo')";
 
+
 $sql_login = "INSERT INTO login (status, code, senha, nome, painel) VALUES ('Ativo', '$code', '$cpf', '$nome', 'Aluno')";
 
 $cadastra = mysqli_query($conexao, $sql_2);
 print($cadastra);
+echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso! Click em OK para avançar')'.$cadastra';</script>";
 $cadastra_login = mysqli_query($conexao, $sql_login);
 
 echo "<script language='javascript'>window.alert('Dados cadastrados com sucesso! Click em OK para avançar');window.location='estudantes.php?pg=cadastra&bloco=2&code=$code';</script>";

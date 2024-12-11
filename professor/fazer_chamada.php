@@ -41,10 +41,12 @@ if(mysqli_num_rows($resultado) == ''){
     <td><?php echo $res_1['nome']; ?><input type="hidden" name="nome" value="<?php echo $res_1['nome']; ?>" /></td>
     <td width="315">
     <?php
+    
     $sql_2 = "SELECT * FROM chamadas_em_sala WHERE date_day = '$date_hoje' AND disciplina = '$dis' AND code_aluno = '$code_aluno'";
-	$resultado2 = mysqli_query($conexao, $sql_2);
-	if(mysqli_num_rows($resultado2) == ''){
-	?>
+	  $resultado2 = mysqli_query($conexao, $sql_2);
+    
+	  if(mysqli_num_rows($resultado2) == 0){
+	  ?>
     <input type="radio" name="presensa" id="radio" value="SIM">
     <label for="radio">SIM 
       <input type="radio" name="presensa" value="NÃO">
@@ -54,7 +56,7 @@ if(mysqli_num_rows($resultado) == ''){
     FALTA JUSTIFICADA 
     <label for="fileField"></label></td>
     <td width="62"><input type="submit" name="button" id="button" value="Guardar"></td>
-    <?php }else{ echo "Indisponível"; }?>
+    <?php } else { echo "Indisponível"; }?>
   </tr>
   <tr>
 <?php if(isset($_POST['button'])){
@@ -65,20 +67,23 @@ $nome = $_POST['nome'];
 
 if($presensa == ''){
 	echo "<script language='javascript'>window.alert('Por favor, informe se este aluno está presente ou não na sala de aula!');</script>";
-}else{
-$sql_3 = "SELECT * FROM confirma_entrada_de_alunos WHERE data_hoje = '$date_hoje' AND code_aluno = '$code_aluno'";
-$resultado3 = mysqli_query($conexao, $sql_3);
-if(mysqli_num_rows($resultado3) == '' && $presensa == 'SIM'){
+}
+else {
+  $sql_3 = "SELECT * FROM confirma_entrada_de_alunos WHERE data_hoje = '$date_hoje' AND code_aluno = '$code_aluno'";
+  $resultado3 = mysqli_query($conexao, $sql_3);
+  if(mysqli_num_rows($resultado3) == '' && $presensa == 'SIM'){
 	echo "<script language='javascript'>window.alert('Este aluno não entrou na escola hoje!');</script>";
-}else{	
-if(mysqli_num_rows($resultado3)>=1 && $presensa == 'NÃO' || $presensa == 'JUSTIFICADA'){
+  } 
+  else  {	
+  if(mysqli_num_rows($resultado3)>=1 && $presensa == 'NÃO' || $presensa == 'JUSTIFICADA'){
 ?>
  <td colspan="3">
  <h3><strong>Este aluno entrou na instituição hoje, tem certeza que ele não está na sala de aula?</strong></h3>
  <a href="fazer_chamada.php?curso=<?php echo $_GET['curso']; ?>&dis=<?php echo $_GET['dis']; ?>&confirmar_falta=sim&code_aluno=<?php echo $code_aluno; ?>&tipo=<?php echo $_POST['presensa']; ?>">CONFIRMAR FALTA</a> | <a href="">CANCELAR</a>
  </td>
 <?php
-}else{
+  }
+  else  {
 $sql_4 = "INSERT INTO chamadas_em_sala (date, date_day, curso, disciplina, code_professor, code_aluno, presente) VALUES ('$date', '$date_hoje', '$curso', '$dis', '$code', '$code_aluno', '$presensa')";	
 mysqli_query($conexao, $sql_4);
 	echo "<script language='javascript'>window.location='';</script>";	

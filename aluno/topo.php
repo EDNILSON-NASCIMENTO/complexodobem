@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php require "../config.php"; $code; ?>
 <link href="css/topo.css" rel="stylesheet" type="text/css" />
-<title>To Learn - Administração do Professor</title>
+<title>To Learn - Administração do aluno</title>
 <script language="javascript" src="../js/jquery-1.7.2.min.js"></script>
 <script src="../js/lightbox.js"></script>
 <link href="../css/lightbox.css" rel="stylesheet" />
@@ -56,7 +56,7 @@
  </div><!-- campo_busca -->
  
  <div id="mostra_login">
-  <h1><strong>Olá Professor! Seu código é:</strong> <?php echo @$code; ?> <strong><a href="../config.php?acao=quebra">Sair</a></strong></h1>
+  <h1><strong>Olá Aluno! Seu código é:</strong> <?php echo @$code; ?> <strong><a href="../config.php?acao=quebra">Sair</a></strong></h1>
  </div><!-- mostra_login -->
 </div><!-- box_topo -->
 
@@ -65,8 +65,8 @@
  <div id="menu_topo">
   <ul>
    <li><a href="index.php">HOME</a></li>
-   <li><a href="turmas_e_alunos.php">TURMAS & ALUNOS</a></li>   
-   <li><a href="">TODAS AS AVALIAÇÕES</a>
+   <li><a href="cursos_aluno.php">Cursos e Turmas</a></li>   
+   <li><a href="">NOTAS</a>
     <ul>
      <li><a href="trabalhos_bimestrais.php">Trabalhos bimestrais</a></li>
      <li><a href="todas_as_avaliacoes.php?pg=provas_bimestrais">Provas bimestrais</a></li>
